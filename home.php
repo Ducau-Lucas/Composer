@@ -11,7 +11,7 @@
     <nav>
         <div><a href="createDb.php">Créer la BDD</a></div>
         <div><a href="createTable.php">Créer la Table users</a></div> 
-        <div><a href=""></a></div>  
+        <div><a href="insertData.php">Insérer les Données</a></div>  
     </nav>
 </body>
 </html>
