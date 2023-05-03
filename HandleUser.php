@@ -11,6 +11,12 @@ class HandleUsers {
         $this->pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf8", "admin", "admin");
         
     }
+    
+    /**
+     * enregistre les données en bdd
+     * @param array $users
+     * @return void
+     */
 
     public function saveUsersFromApi($users){
         
