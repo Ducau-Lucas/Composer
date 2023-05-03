@@ -10,7 +10,7 @@
     <h1>Home</h1>
     <nav>
         <div><a href="createDb.php">Créer la BDD</a></div>
-        <div><a href=""></a></div> 
+        <div><a href="createTable.php">Créer la Table users</a></div> 
         <div><a href=""></a></div>  
     </nav>
 </body>
