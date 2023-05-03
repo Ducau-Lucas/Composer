@@ -65,19 +65,34 @@ class User{
 }
 
 dump($users);
-$pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf8", "admin", "admin");
 
-$sql = "INSERT INTO users (`first_name`, `last_name`, `email`, `gender`, `ip_address`) 
-VALUES (:first_name,:last_name,:email,:gender,:ip_address)";
-$stmt = $pdo->prepare($sql);
-$pdo->beginTransaction();
-foreach ($users as $user) {
-    $stmt->execute([
-        ":first_name" => $user->first_name,
-        ":last_name" => $user->last_name,
-        ":email" => $user->email,
-        ":gender" => $user->gender,
-        ":ip_address" => $user->ip_address
-    ]);
+class HandleUsers {
+
+    public function saveUsersFromApi($users){
+        $pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf8", "admin", "admin");
+        
+        $sql = "INSERT INTO users (`first_name`, `last_name`, `email`, `gender`, `ip_address`) 
+        VALUES (:first_name,:last_name,:email,:gender,:ip_address)";
+        $stmt = $pdo->prepare($sql);
+        $pdo->beginTransaction();
+        foreach ($users as $user) {
+            $userInstance = new User();
+            $userInstance->setFirstname($user->first_name);
+            $userInstance->setLastname($user->last_name);
+            $userInstance->setEmail($user->email);
+            $userInstance->setGender($user->gender);
+            $userInstance->setIpAddress($user->ip_address);
+            $stmt->execute([
+                ":first_name" => $userInstance->getFirstname(),
+                ":last_name" => $userInstance->getLastname(),
+                ":email" => $userInstance->getEmail(),
+                ":gender" => $userInstance->getGender(),
+                ":ip_address" => $userInstance->getIpAddress()
+            ]);
+        }
+        $pdo->commit();
+        
+    }
 }
-$pdo->commit();
+$handleUsers = new HandleUsers();
+$handleUsers->saveUsersFromApi($users);
