@@ -15,10 +15,12 @@ $pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf
 $sql = "INSERT INTO users (`first_name`, `last_name`, `email`, `gender`, `ip_address`) 
 VALUES (:first_name,:last_name,:email,:gender,:ip_address)";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([
-    ":first_name" => "Lucas",
-    ":last_name" => "Ducau",
-    ":email" => "lucas.ducau64@gmail.com",
-    ":gender" => "M",
-    ":ip_address" => "xxx.xxx.xxx.xxx"
-]);
+foreach ($users as $user) {
+    $stmt->execute([
+        ":first_name" => $user->first_name,
+        ":last_name" => $user->last_name,
+        ":email" => $user->email,
+        ":gender" => $user->gender,
+        ":ip_address" => $user->ip_address
+    ]);
+}
