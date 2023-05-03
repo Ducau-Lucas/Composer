@@ -68,13 +68,20 @@ dump($users);
 
 class HandleUsers {
 
+    private $pdo;
+
+    public function __construct()
+    {
+        $this->pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf8", "admin", "admin");
+        
+    }
+
     public function saveUsersFromApi($users){
-        $pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf8", "admin", "admin");
         
         $sql = "INSERT INTO users (`first_name`, `last_name`, `email`, `gender`, `ip_address`) 
         VALUES (:first_name,:last_name,:email,:gender,:ip_address)";
-        $stmt = $pdo->prepare($sql);
-        $pdo->beginTransaction();
+        $stmt = $this->pdo->prepare($sql);
+        $this->pdo->beginTransaction();
         foreach ($users as $user) {
             $userInstance = new User();
             $userInstance->setFirstname($user->first_name);
@@ -90,7 +97,7 @@ class HandleUsers {
                 ":ip_address" => $userInstance->getIpAddress()
             ]);
         }
-        $pdo->commit();
+        $this->pdo->commit();
         
     }
 }
