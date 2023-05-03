@@ -11,3 +11,7 @@ $response = $httpClient->request('GET', $url, ['verify' => false]);
 $users = json_decode($response->getBody());
 
 dump($users);
+
+foreach ($users as $user) {
+    echo $user->email . "<br>";
+}
