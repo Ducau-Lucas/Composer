@@ -1,0 +1,2 @@
+
+[2023-05-02T15:43:12.201257+02:00] app.WARNING: Undefined variable $ok {"file":"/var/www/html/phpcomposer/index.php","line":53} []
