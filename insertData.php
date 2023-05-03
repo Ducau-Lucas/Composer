@@ -15,6 +15,7 @@ $pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf
 $sql = "INSERT INTO users (`first_name`, `last_name`, `email`, `gender`, `ip_address`) 
 VALUES (:first_name,:last_name,:email,:gender,:ip_address)";
 $stmt = $pdo->prepare($sql);
+$pdo->beginTransaction();
 foreach ($users as $user) {
     $stmt->execute([
         ":first_name" => $user->first_name,
@@ -24,3 +25,4 @@ foreach ($users as $user) {
         ":ip_address" => $user->ip_address
     ]);
 }
+$pdo->commit();
