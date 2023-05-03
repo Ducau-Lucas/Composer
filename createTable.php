@@ -7,7 +7,7 @@ $pdo = new PDO("mysql:host=localhost;dbname=composer_users;port=3306;charset=utf
 
 dump($pdo);
 
-$sql = "CREATE TABLE users (
+$sql = "CREATE TABLE IF NOT EXISTS users (
     id int(11) NOT NULL AUTO_INCREMENT,
     first_name varchar(255) NOT NULL,
     last_name varchar(255) NOT NULL,
